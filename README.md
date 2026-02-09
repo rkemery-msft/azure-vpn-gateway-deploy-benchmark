@@ -6,6 +6,12 @@ intended to measure VPN gateway deployment time and record its characteristics.
 This public version is sanitized for demo and testing use. It does not contain
 any secrets or account identifiers.
 
+## What this demonstrates
+
+- Baseline and optimized VPN gateway deployment timing in Azure.
+- A comparison of azurerm vs azapi for provisioning the same gateway shape.
+- Repeatable, self-contained test harness for demos and CI-style validation.
+
 ## Pre-checks
 
 - Azure CLI is installed and logged in: `az account show`
