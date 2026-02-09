@@ -1,0 +1,5 @@
+# Example overrides for demo/testing
+# ssh_public_key_path = "C:/Users/<you>/.ssh/id_rsa.pub"
+# vpn_gateway_sku = "VpnGw2"
+# vpn_gateway_generation = "Generation2"
+# use_azapi_gateway = false
