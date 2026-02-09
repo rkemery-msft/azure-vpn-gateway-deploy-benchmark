@@ -38,6 +38,12 @@ to avoid deploying the VM.
 .\run-test.ps1
 ```
 
+To run without logging results to README:
+
+```powershell
+.\run-test.ps1 -NoLog
+```
+
 To run a full apply (VM + gateway):
 
 ```powershell

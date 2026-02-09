@@ -3,7 +3,8 @@ param(
   [switch]$Optimized,
   [string]$OptimizedSku = "VpnGw1",
   [string]$OptimizedGeneration = "Generation1",
-  [bool]$OptimizedUseAzapi = $true
+  [bool]$OptimizedUseAzapi = $true,
+  [switch]$NoLog
 )
 
 $ErrorActionPreference = "Stop"
@@ -87,26 +88,30 @@ Write-Host "  Generation: $gen"
 Write-Host "  Active-Active: $active"
 Write-Host "  BGP Enabled: $bgp"
 
-$readmePath = Join-Path $PSScriptRoot "README.md"
-$timestamp = (Get-Date).ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss 'UTC'")
-$minutes = [int]$elapsed.TotalMinutes
-$seconds = $elapsed.Seconds
-$entry = @(
-  "",
-  "### Deploy Results",
-  "- Mode: $mode",
-  "- Optimized SKU: $OptimizedSku",
-  "- Optimized Generation: $OptimizedGeneration",
-  "- Optimized Use AzAPI: $OptimizedUseAzapi",
-  "- Timestamp: $timestamp",
-  "- Total apply time: ${minutes}m ${seconds}s",
-  "- Resource group: $rg",
-  "- Gateway ID: $gwId",
-  "- SKU: $sku",
-  "- VPN type: $vpnType",
-  "- Generation: $gen",
-  "- Active-active: $active",
-  "- BGP enabled: $bgp"
-)
-Add-Content -Path $readmePath -Value $entry
-Write-Host "Appended deploy results to README.md" -ForegroundColor Green
+if (-not $NoLog) {
+  $readmePath = Join-Path $PSScriptRoot "README.md"
+  $timestamp = (Get-Date).ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss 'UTC'")
+  $minutes = [int]$elapsed.TotalMinutes
+  $seconds = $elapsed.Seconds
+  $entry = @(
+    "",
+    "### Deploy Results",
+    "- Mode: $mode",
+    "- Optimized SKU: $OptimizedSku",
+    "- Optimized Generation: $OptimizedGeneration",
+    "- Optimized Use AzAPI: $OptimizedUseAzapi",
+    "- Timestamp: $timestamp",
+    "- Total apply time: ${minutes}m ${seconds}s",
+    "- Resource group: $rg",
+    "- Gateway ID: $gwId",
+    "- SKU: $sku",
+    "- VPN type: $vpnType",
+    "- Generation: $gen",
+    "- Active-active: $active",
+    "- BGP enabled: $bgp"
+  )
+  Add-Content -Path $readmePath -Value $entry
+  Write-Host "Appended deploy results to README.md" -ForegroundColor Green
+} else {
+  Write-Host "Skipping README logging (-NoLog)" -ForegroundColor Yellow
+}
